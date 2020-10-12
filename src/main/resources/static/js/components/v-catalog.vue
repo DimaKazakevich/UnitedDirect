@@ -1,14 +1,5 @@
 <template>
     <div class="v-catalog">
-<!--        <div class="menu">-->
-<!--            <ul class="topLevelMenu">-->
-<!--                <li v-on:click="example('kits')" class="menuHeader">Kits</li>-->
-<!--                <li class="menuHeader">Fashion</li>-->
-<!--                <li class="menuHeader">Souvenirs</li>-->
-<!--                <li v-on:click="example('training')" class="menuHeader">Training</li>-->
-<!--                <li class="menuHeader">Home</li>-->
-<!--            </ul>-->
-<!--        </div>-->
         <div class="v-catalog__filters col-xs-3"></div>
         <div class="v-catalog__list">
             <v-catalog-item v-for="product in products" :key="product.id" v-bind:product-data="product" />
@@ -19,6 +10,7 @@
 <script>
     import vCatalogItem from './v-catalog-item.vue'
     import axios from 'axios'
+    import { prodComponent } from './data.json'
 
     export default {
         name: 'v-catalog',
@@ -27,35 +19,25 @@
             vCatalogItem
         },
         data() {
-            return {
-                products: []
-            }
+            return prodComponent;
         },
         computed: {},
         created() {
             axios.get('/products').then(response =>
-                response.data.forEach(product => this.products.push(product))
+                response.data.forEach(product => prodComponent.products.push(product))
             );
-        },
-        methods: {
-            example(category) {
-                this.products = [];
-                axios.get(`/products/${category}`).then(response =>
-                    response.data.forEach(product => this.products.push(product))
-                );
-            }
         }
     }
 </script>
 
-<style lang="css">
+<style lang="scss">
 .v-catalog {
     display: flex;
     justify-content: center;
     margin-top: 40px;
-}
-div.v-catalog div.v-catalog__list {
-    display: flex;
-    flex-wrap: wrap;
+    &__list {
+             display: flex;
+             flex-wrap: wrap;
+     }
 }
 </style>

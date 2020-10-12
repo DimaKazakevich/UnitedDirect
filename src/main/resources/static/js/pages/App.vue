@@ -5,17 +5,16 @@
 </template>
 
 <script>
-    import VMainWrapper from "../components/v-main-wrapper.vue";
+    import vMainWrapper from "../components/v-main-wrapper.vue";
 
 export default {
     name: 'app',
-    components: {VMainWrapper}
+    components: {vMainWrapper: vMainWrapper}
 }
 </script>
 
 <style lang="css">
     #app {
-        display: flex;
     }
 </style>
 

@@ -1,23 +1,23 @@
 import Vue from 'vue'
 import App from './pages/App.vue'
-/*
-var productApi = Vue.resource('/products{/id}');
+import VueRouter from 'vue-router'
+Vue.use(VueRouter)
 
-Vue.component('products-list', {
-    props: ['products'],
-    template: '<div id="content" style="display:flex; flex-wrap:wrap; justify-content:end; width:1020px; border-top: 1px solid lightgray; padding: 30px;"><product-row v-for="product in products" :key="product.id" :product="product" /></div>',
-    created: function () {
-        productApi.get().then(result =>
-            result.json().then(data =>
-                data.forEach(product => this.products.push(product))
-            )
-        )
-    }
-});
+let v_catalog = require('./components/v-catalog.vue')
+let v_menu = require('./components/v-menu.vue')
+const routes = [
+    {path: '/', component: v_catalog},
+    {path: 'products/kits', component: v_menu}
+];
 
-});*/
+const router = new VueRouter
+({
+    mode: 'history',
+    routes
+})
 
 
 new Vue({
-    render: h => h(App)
+    render: h => h(App),
+    router: router
 }).$mount('#app');
