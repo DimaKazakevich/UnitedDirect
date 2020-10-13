@@ -1,6 +1,11 @@
 package by.kazakevich.uniteddirect.config;
 
+import org.springframework.boot.web.server.ConfigurableWebServerFactory;
+import org.springframework.boot.web.server.ErrorPage;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -36,14 +41,14 @@ public class WebConfig implements WebMvcConfigurer {
 //        return viewResolver;
 //    }
 
-    public static String uploadDirectory= "D:\\Dima\\3 курс\\1 сем\\Java\\UnitedDirect\\src\\main\\resources\\static" + "\\img";
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/img/**").addResourceLocations("file:" + uploadDirectory+"\\");
+    @Bean
+    public WebServerFactoryCustomizer<ConfigurableWebServerFactory> webServerCustomizer() {
+        return  container -> {
+            container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/"));
+        };
     }
 
-    public void addViewControllers(ViewControllerRegistry registry) {
+/*    public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/products").setViewName("index");
-    }
+    }*/
 }

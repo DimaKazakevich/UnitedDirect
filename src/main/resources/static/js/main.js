@@ -1,13 +1,12 @@
 import Vue from 'vue'
 import App from './pages/App.vue'
 import VueRouter from 'vue-router'
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
-let v_catalog = require('./components/v-catalog.vue')
-let v_menu = require('./components/v-menu.vue')
+let v_catalog = require('./components/v-catalog.vue');
 const routes = [
-    {path: '/', component: v_catalog},
-    {path: 'products/kits', component: v_menu}
+    {path: '/', component: v_catalog.default},
+    {path: '/products/:category', name: 'categoryPage' , component: v_catalog.default}
 ];
 
 const router = new VueRouter

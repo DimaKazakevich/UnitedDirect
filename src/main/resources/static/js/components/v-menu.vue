@@ -1,8 +1,8 @@
 <template>
     <div class="menu">
         <ul class="menu__list">
-            <li v-for="category in categories" :key="category.id" v-on:click="findByCategory(category)" class="menu__item">
-                <router-link :to="{ name: `/products/${category.category.toLocaleLowerCase()}`}">{{category.category}}</router-link>
+            <li v-for="category in categories" :key="category.id" class="menu__item">
+                <router-link :to="{ name: 'categoryPage', params: {category: category.category.toLocaleLowerCase()}}">{{category.category}}</router-link>
             </li>
         </ul>
     </div>
@@ -14,23 +14,21 @@
     export default {
         name: "v-menu",
         data() {
-            // products: prodComponent,
-            // categories: [];
             return {
                 products: prodComponent,
                 categories: []
             }
         },
         methods: {
-            findByCategory(category) {
+            getAllByCategory(category) {
                 prodComponent.products = [];
-                axios.get(`/products/${category}`).then(response =>
+                axios.get(`/api/products/${category}`).then(response =>
                     response.data.forEach(product => prodComponent.products.push(product))
                 );
             }
         },
         created() {
-            axios.get('/products/categories').then(response =>
+            axios.get('/api/products/categories').then(response =>
                 response.data.forEach(product => this.categories.push(product))
             );
         }
@@ -52,9 +50,11 @@
             color: white;
             height: 32px;
             margin: 4px auto;
+            list-style-type: none;
         }
         &__item:hover {
             background: white;
+            cursor: pointer;
         }
         &__item a {
             color: white;

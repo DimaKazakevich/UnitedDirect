@@ -16,11 +16,11 @@
         <img src="/img/unitedDirectHeaderLogo.png" alt="img"/>
     </div>
 </header>
-<div id="app">
+<div id="app" style="min-height: 100%">
 </div>
 <script type="module" src="http://localhost:9000/main.js"></script>
 <footer>
-    <div class="footerCaption">©2020 Manchester United FC Ltd</div>
+    <div class="footerCaption" th:text="${'©'+#dates.year(#dates.createNow()) + ' Manchester United FC Ltd'}"></div>
     <div class="footerImage">
         <img src="/img/footerLogo.png" alt="img"/>
     </div>

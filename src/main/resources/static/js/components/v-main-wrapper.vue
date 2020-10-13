@@ -2,7 +2,7 @@
     <div class="v-main-wrapper">
         <v-menu />
         <v-carousel />
-        <v-catalog />
+        <router-view></router-view>
     </div>
 </template>
 
@@ -19,10 +19,8 @@
     }
 </script>
 
-<style lang="css">
+<style lang="scss">
 .v-main-wrapper {
-    /*display: flex;*/
-    /*justify-content: center;*/
-    /*width: max-content;*/
+    min-height: 100%;
 }
 </style>

@@ -5,16 +5,14 @@
 </template>
 
 <script>
-    import vMainWrapper from "../components/v-main-wrapper.vue";
+    import vMainWrapper from "components/v-main-wrapper.vue";
 
-export default {
-    name: 'app',
-    components: {vMainWrapper: vMainWrapper}
-}
+    export default {
+        name: 'app',
+        components: {vMainWrapper: vMainWrapper}
+    }
 </script>
 
 <style lang="css">
-    #app {
-    }
 </style>
 

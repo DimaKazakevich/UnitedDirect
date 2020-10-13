@@ -28,6 +28,7 @@
 .v-catalog-item {
     display:flex;
     padding-left:25px;
+    max-width: 275px;
     flex-direction:column;
     margin-bottom:15px;
     margin-right:15px;
@@ -35,13 +36,14 @@
     &__title {
         margin-left:-25px;
         font-weight:700;
-        font-size:12px
+        font-size:12px;
+        min-height: 34px;
     }
     &__price {
         color:#b61c1c;
         align-self:flex-start;
         position:absolute;
-        margin-top:25px;
+        margin-top:35px;
         font-weight:700;
         font-size:14px;
         margin-left: -25px;

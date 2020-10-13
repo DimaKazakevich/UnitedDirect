@@ -6,15 +6,13 @@ import by.kazakevich.uniteddirect.repository.CategoryRepository;
 import by.kazakevich.uniteddirect.repository.ProductRepository;
 import by.kazakevich.uniteddirect.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/api/products")
 public class ProductController {
     private ProductService productService;
     private ProductRepository productRepository;
@@ -33,7 +31,8 @@ public class ProductController {
     }
 
     @RequestMapping("/{category}")
-    public List<Product> getByCategory(@PathVariable(value="category") String category) {
+    public @ResponseBody
+    List<Product> getByCategory(@PathVariable(value="category") String category) {
         return productRepository.findByCategory(category);
     }
 
