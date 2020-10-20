@@ -48,7 +48,7 @@
 </script>
 
 <style lang="scss">
-.v-sorting-drop-down{
+.v-sorting-drop-down {
     flex: 0 0 auto;
     margin: 0 0 40px;
     font-weight: 700;

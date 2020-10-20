@@ -4,17 +4,13 @@
             <li data-target="#carousel-id" data-slide-to="0" class="active"></li>
             <li data-target="#carousel-id" data-slide-to="1" class=""></li>
             <li data-target="#carousel-id" data-slide-to="2" class=""></li>
-            <li data-target="#carousel-id" data-slide-to="3" class=""></li>
         </ol>
         <div class="carousel-inner">
             <div class="item active">
-                <img :src="'../../img/carousel_kit.jpg'">
+                <img :src="'../../img/carousel_kit.jpg'" alt="img">
             </div>
             <div class="item">
-                <img :src="'../../img/d_carousel_home.jpg'" alt="img">
-            </div>
-            <div class="item">
-                <img :src="'../../img/d_carousel_kitsale.jpg'" alt="img">
+                <img :src="'../../img/carousel_bruno.jpg'" alt="img">
             </div>
             <div class="item">
                 <img :src="'../../img/d_carousel_black_lives_matter.jpg'" alt="img">
@@ -36,5 +32,7 @@
 </script>
 
 <style>
-
+.carousel-indicators {
+    z-index: 1;
+}
 </style>

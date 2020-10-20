@@ -37,7 +37,7 @@
 
 <style lang="scss">
     .menu {
-        background-color:black;
+        background-color:#b61c1c;
         height: 40px;
         &__list {
             margin: 0px;
@@ -47,6 +47,10 @@
             font-size: 16pt;
         }
         &__item {
+            @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+            font-family: "Open Sans", sans-serif;
+            text-transform: uppercase;
+            font-weight: 600;
             color: white;
             height: 32px;
             margin: 4px auto;
