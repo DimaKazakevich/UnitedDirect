@@ -4,8 +4,10 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter);
 
 let v_catalog = require('./components/v-catalog.vue');
+let v_main_content = require('./components/v-main-content.vue');
+
 const routes = [
-    {path: '/', component: v_catalog.default},
+    {path: '/', component: v_main_content.default},
     {path: '/products/:category', name: 'categoryPage' , component: v_catalog.default}
 ];
 
