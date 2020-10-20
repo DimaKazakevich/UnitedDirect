@@ -3,11 +3,10 @@ package by.kazakevich.uniteddirect.controller;
 import by.kazakevich.uniteddirect.domain.Category;
 import by.kazakevich.uniteddirect.domain.Product;
 import by.kazakevich.uniteddirect.repository.CategoryRepository;
-import by.kazakevich.uniteddirect.repository.ProductRepository;
 import by.kazakevich.uniteddirect.services.ProductService;
+import by.kazakevich.uniteddirect.services.SizeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.List;
 
@@ -15,14 +14,14 @@ import java.util.List;
 @RequestMapping("/api/products")
 public class ProductController {
     private ProductService productService;
-    private ProductRepository productRepository;
     private CategoryRepository categoryRepository;
+    private SizeService sizeService;
 
     @Autowired
-    public ProductController(ProductService productService, ProductRepository productRepository, CategoryRepository categoryRepository) {
+    public ProductController(ProductService productService, CategoryRepository categoryRepository, SizeService sizeService) {
         this.categoryRepository = categoryRepository;
         this.productService = productService;
-        this.productRepository = productRepository;
+        this.sizeService = sizeService;
     }
 
     @GetMapping
@@ -33,11 +32,17 @@ public class ProductController {
     @RequestMapping("/{category}")
     public @ResponseBody
     List<Product> getByCategory(@PathVariable(value="category") String category) {
-        return productRepository.findByCategory(category);
+        return productService.findAllByCategory(category);
     }
 
     @RequestMapping("/categories")
     public List<Category> getAllCategories() {
         return categoryRepository.findAll();
+    }
+
+    @RequestMapping("/{productId}/sizes")
+    public @ResponseBody
+    List<String> getByProductId(@PathVariable(value="productId") Integer productId) {
+        return sizeService.findAllByProductId(productId);
     }
 }

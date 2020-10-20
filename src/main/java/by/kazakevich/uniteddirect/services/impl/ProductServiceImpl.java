@@ -1,7 +1,8 @@
-package by.kazakevich.uniteddirect.services;
+package by.kazakevich.uniteddirect.services.impl;
 
 import by.kazakevich.uniteddirect.domain.Product;
 import by.kazakevich.uniteddirect.repository.ProductRepository;
+import by.kazakevich.uniteddirect.services.ProductService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
