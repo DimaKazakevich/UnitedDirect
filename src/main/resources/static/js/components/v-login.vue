@@ -1,53 +1,34 @@
 <template>
     <div>
-    <h1>Login</h1>
-        <table>
-            <tr>
-                <td>User:</td>
-                <td><input type='text' v-model="input.username" required="required"></td>
-            </tr>
-            <tr>
-                <td>Password:</td>
-                <td><input type='password' v-model="input.password"  required="required"/></td>
-            </tr>
-            <tr>
-                <td><input name="submit" type="submit" @click="login" value="login" /></td>
-            </tr>
-        </table>
+        <form class="login" @submit.prevent="login">
+            <h1>Log in</h1>
+            <label>Email</label>
+            <input required v-model="email" type="email" placeholder="Name"/>
+            <label>Password</label>
+            <input required v-model="password" type="password" placeholder="Password"/>
+            <hr/>
+            <button type="submit">Login</button>
+        </form>
     </div>
 </template>
 
 <script>
-    import axios from "axios";
-    import {prodComponent} from "./data";
     let token = '';
     export default {
         name: "v-login",
         data() {
             return {
-                input: {
-                    username: "",
-                    password: ""
-                }
+                email: '',
+                password: ''
             }
         },
         methods: {
             login() {
-                    let axiosConfig = {
-                        headers: {
-                            'Content-Type': 'application/json;charset=UTF-8',
-                            "Access-Control-Allow-Origin": "*",
-                        }
-                    };
-                    let body = {
-                        username: this.input.username,
-                        password: this.input.password
-                    };
-
-                    axios.post(`/api/auth/login`,body,axiosConfig).then(response => {
-                            token = response.data
-                            this.$router.replace({name: "mainPage"})
-            })
+                let email = this.email
+                let password = this.password
+                this.$store.dispatch('login', { username:email, password:password })
+                    .then(() => this.$router.push('/'))
+                    .catch(err => console.log(err))
             }
         }
     }
