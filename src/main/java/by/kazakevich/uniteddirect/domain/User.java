@@ -11,8 +11,7 @@ import java.util.List;
 @Data
 @Table(name = "users")
 public class User {
-    public User(String username, String email, String password) {
-        this.username = username;
+    public User(String email, String password) {
         this.email = email;
         this.password = password;
     }
@@ -20,14 +19,11 @@ public class User {
     public User() { }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String email;
     private String password;
-
-    @Column(name = "username")
-    private String username;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles", joinColumns = {@JoinColumn(name = "user_id")},
