@@ -26,7 +26,7 @@
             login() {
                 let email = this.email
                 let password = this.password
-                this.$store.dispatch('login', { username:email, password:password })
+                this.$store.dispatch('login', { email:email, password:password })
                     .then(() => this.$router.push('/'))
                     .catch(err => console.log(err))
             }

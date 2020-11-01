@@ -8,7 +8,7 @@ export default new Vuex.Store({
     state: {
         status: '',
         token: localStorage.getItem('token') || '',
-        username: ''
+        email: ''
     },
     mutations: {
         auth_request(state){
@@ -17,7 +17,7 @@ export default new Vuex.Store({
         auth_success(state, token){
             state.status = 'success'
             state.token = token.token
-            state.username = token.username
+            state.email = token.email
         },
         auth_error(state){
             state.status = 'error'
@@ -25,13 +25,19 @@ export default new Vuex.Store({
         logout(state){
             state.status = ''
             state.token = ''
-            state.username = ''
+            state.email = ''
+        },
+        register_success(state) {
+            state.status = 'success'
+        },
+        register_failure(state) {
+            state.status = 'failure'
         }
     },
     getters: {
         isLoggedIn: state => !!state.token,
         authStatus: state => state.status,
-        userName: state => state.username
+        userEmail: state => state.email
     },
     actions: {
         async login({commit}, user){
@@ -39,10 +45,10 @@ export default new Vuex.Store({
             try {
                 let resp = await axios({url: '/api/auth/login', data: user, method: 'POST'})
                 const token = resp.data.token
-                const username = resp.data.user
+                const email = resp.data.email
                 localStorage.setItem('token', token)
                 axios.defaults.headers.common['Authorization'] = token
-                commit('auth_success', {token: token, username: username})
+                commit('auth_success', {token: token, email: email})
             } catch(err) {
                 commit('auth_error')
                 localStorage.removeItem('token')
@@ -53,6 +59,15 @@ export default new Vuex.Store({
             commit('logout')
             localStorage.removeItem('token')
             delete axios.defaults.headers.common['Authorization']
+        },
+        register({commit}, user) {
+            try {
+                axios({url: '/api/auth/register', data: user, method: 'POST'})
+                commit('register_success')
+            } catch (err) {
+                commit('register_failure')
+                console.log(err.message)
+            }
         }
     },
     plugins: [createPersistedState()]

@@ -2,16 +2,17 @@
     <header>
         <div class="header-navbar">
             <ul class="header-navbar__list">
-                <li class="header-navbar__nav-item" v-if="isLoggedIn">
-                    <a href="/" class="header-navbar__nav-link">{{userName}}</a>
+                <li class="header-navbar__nav-item nav-item" v-if="isLoggedIn">
+                    <img class="nav-item__icon" src="/img/user_profile.png" alt="img" />
+                    <a href="/" class="header-navbar__nav-link">{{userEmail}}</a>
                 </li>
                 <li class="header-navbar__nav-item" v-if="isLoggedIn">
                     <a class="header-navbar__nav-link" @click="logout">Logout</a>
                 </li>
-                <li class="header-navbar__nav-item" v-else>
+                <li class="header-navbar__nav-item" v-if="!isLoggedIn">
                     <a href="/login" class="header-navbar__nav-link">Login</a>
                 </li>
-                <li class="header-navbar__nav-item">
+                <li class="header-navbar__nav-item" v-if="!isLoggedIn">
                     <a href="/register" class="header-navbar__nav-link">Register</a>
                 </li>
             </ul>
@@ -42,7 +43,7 @@
             return {}
         },
         computed: {
-            ...mapGetters(['isLoggedIn', 'userName'])
+            ...mapGetters(['isLoggedIn', 'userEmail'])
         },
         methods: {
             logout() {
@@ -58,6 +59,7 @@
 <style lang="scss">
     .header-navbar {
         &__nav-item {
+            display: flex;
             cursor: pointer;
         }
         &__nav-item:hover {
@@ -66,7 +68,7 @@
         &__nav-link {
             @import url('https://fonts.googleapis.com/css?family=Open+Sans');
             font-family: "Open Sans", sans-serif;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 400;
             line-height: 1.5;
             list-style: none;
@@ -93,6 +95,14 @@
         &__img {
             height: 60px;
             width: 60px;
+        }
+    }
+    .nav-item {
+        &__icon {
+            align-self: center;
+            margin-bottom: 2px;
+            height: 20px;
+            width: 20px;
         }
     }
 </style>
