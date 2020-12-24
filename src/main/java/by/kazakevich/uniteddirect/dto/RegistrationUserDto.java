@@ -21,7 +21,6 @@ public class RegistrationUserDto {
     private String password;
 
     public User ToUser(){
-
         return new User(this.getEmail(), this.getPassword());
     }
 }

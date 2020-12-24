@@ -28,12 +28,14 @@ public class JwtTokenFilter extends GenericFilterBean {
             Authentication auth = jwtTokenProvider.getAuthentication(token);
             //Object principal = jwtTokenProvider.getAuthentication(token).getPrincipal();
 
-//            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//
-//            if (principal instanceof UserDetails) {
-//                String username = ((UserDetails) principal).getUsername();
-//                System.out.println(username);
-//            }
+            //Object principal2 = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+/*            if (principal instanceof UserDetails) {
+                String username = ((UserDetails) principal).getUsername();
+                System.out.println(((UserDetails) principal).getAuthorities());
+                System.out.println(username);
+            }
+            System.out.println("Yes" + jwtTokenProvider.getUsername(token));*/
 
             if (auth != null) {
                 SecurityContextHolder.getContext().setAuthentication(auth);

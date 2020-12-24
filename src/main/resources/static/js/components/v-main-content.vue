@@ -115,7 +115,7 @@
         margin: 0 auto;
     }
     @media print, screen and (min-width: 64em) {
-        .layout-column .large-6 {
+        .layout-column.large-6 {
             flex: 1 1 50%;
         }
     }
@@ -146,4 +146,12 @@
         position: relative;
         overflow-x: hidden;
     }
+    @media print, screen and (min-width: 624px) {
+        .layout-column.medium-2 {
+            flex: 1 1 16.66667%;
+        }
+    }
+/*    .layout-column.small-6 {
+        flex: 1 1 50%;
+    }*/
 </style>

@@ -30,8 +30,59 @@ foreign key (CategoryId) references Categories(Id)
 
 insert into Categories(Category) value('Kits');
 insert into Categories(Category) value('Training');
+use uniteddirect;
+insert into Categories(Category) value('Kids');
+insert into Categories(Category) value('Gifts');
 
 insert into CategoryDetails(ProductId, CategoryId) values(1, 2);
 insert into CategoryDetails(ProductId, CategoryId) values(2, 2);
 insert into CategoryDetails(ProductId, CategoryId) values(3, 2);
 insert into CategoryDetails(ProductId, CategoryId) values(4, 1);
+
+use uniteddirect;
+create table Sizes(Id int primary key auto_increment,
+Size varchar(30)
+);
+
+create table SizeDetails(
+Id int primary key auto_increment,
+ProductId int,
+SizeId int,
+Count int,
+constraint sizedetails_products_fk 
+foreign key (ProductId) references Products(Id),
+constraint sizedetails_sizes_fk 
+foreign key (SizeId) references Sizes(Id)
+);
+
+insert into Sizes(Size) value('S');
+insert into Sizes(Size) value('M');
+insert into Sizes(Size) value('L');
+insert into Sizes(Size) value('XL');
+
+insert into SizeDetails(ProductId, SizeID, Count) values(1, 1, 50);
+insert into SizeDetails(ProductId, SizeID, Count) values(1, 2, 50);
+insert into SizeDetails(ProductId, SizeID, Count) values(1, 3, 50);
+insert into SizeDetails(ProductId, SizeID, Count) values(1, 4, 50);
+
+insert into SizeDetails(ProductId, SizeID, Count) values(2, 1, 50);
+insert into SizeDetails(ProductId, SizeID, Count) values(2, 2, 50);
+insert into SizeDetails(ProductId, SizeID, Count) values(2, 3, 50);
+insert into SizeDetails(ProductId, SizeID, Count) values(2, 4, 50);
+
+insert into SizeDetails(ProductId, SizeID, Count) values(3, 1, 50);
+insert into SizeDetails(ProductId, SizeID, Count) values(3, 2, 50);
+insert into SizeDetails(ProductId, SizeID, Count) values(3, 3, 50);
+insert into SizeDetails(ProductId, SizeID, Count) values(3, 4, 50);
+
+insert into SizeDetails(ProductId, SizeID, Count) values(4, 1, 50);
+insert into SizeDetails(ProductId, SizeID, Count) values(4, 2, 50);
+insert into SizeDetails(ProductId, SizeID, Count) values(4, 3, 50);
+insert into SizeDetails(ProductId, SizeID, Count) values(4, 4, 50);
+
+insert into SizeDetails(ProductId, SizeID, Count) values(5, 1, 50);
+insert into SizeDetails(ProductId, SizeID, Count) values(5, 2, 50);
+insert into SizeDetails(ProductId, SizeID, Count) values(5, 3, 50);
+insert into SizeDetails(ProductId, SizeID, Count) values(5, 4, 50);
+
+select Size from Products join SizeDetails on Products.Id = SizeDetails.ProductId join Sizes on SizeDetails.SizeId = Sizes.Id where Products.Id = 1;

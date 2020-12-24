@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User register(User user) {
-        Role role = roleRepository.findByName("USER");
+        Role role = roleRepository.findByName("ROLE_USER");
         List<Role> userRoles = new ArrayList<>();
         userRoles.add(role);
 

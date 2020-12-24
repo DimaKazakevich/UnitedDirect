@@ -4,7 +4,6 @@ import by.kazakevich.uniteddirect.domain.User;
 import by.kazakevich.uniteddirect.security.jwt.JwtUser;
 import by.kazakevich.uniteddirect.security.jwt.JwtUserFactory;
 import by.kazakevich.uniteddirect.services.UserService;
-import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

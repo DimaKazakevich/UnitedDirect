@@ -1,24 +1,21 @@
 package by.kazakevich.uniteddirect.domain;
 
-import jdk.jfr.Enabled;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-@Enabled
-@Data
+@Getter
+@Setter
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "sizedetails")
 public class SizeDetails {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-
-    @ManyToOne
-    @JoinColumn(name = "productid")
-    Product product;
-
-    @ManyToOne
-    @JoinColumn(name = "sizeid")
-    Size size;
-
-    Integer count;
+    @EmbeddedId
+    SizeDetailsId id;
 }

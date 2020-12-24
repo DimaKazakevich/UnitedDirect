@@ -1,17 +1,22 @@
 <template>
     <div class="v-catalog-item">
         <v-size-modal v-if="isSizeModalVisible" @closeModalWindow="closeModalWindow">
-            <label v-for="size in sizes" class="sizeItem" style="background-color:whitesmoke">
-                <span @click="addToCart(2)">{{size}}</span><input class="size" name="size" type="radio">
+            <label v-for="size in sizes"  class="sizeItem" style="background-color:whitesmoke" @click="addToCart(Object.assign(productData, size, {quantity: 1}))">
+                <span>{{size.size}}</span>
             </label>
         </v-size-modal>
-        <p class="v-catalog-item__title">{{productData.name}}</p>
+      <router-link v-if="isAdmin" :to="{ name: 'edit', params: {id: productData.id}}" style="display:flex; flex-direction:column; margin-top:90px; position:absolute; margin-left:-25px">
+        <span class="edit">Edit</span>
+      </router-link>
+        <p class="v-catalog-item__title">{{productData.title}}</p>
         <span class="v-catalog-item__price">{{productData.price}}$</span>
         <div @click="openModalWindow(productData.id)" data-toggle="tooltip" title="Add to basket" data-placement="bottom" class="addtobasket" style="display:flex; flex-direction:column; margin-top:55px; position:absolute; margin-left:-25px">
             <img src="/../img/shopping_cart.png" style="width:24px; height:24px; outline:none;margin-top:5px; cursor:pointer" alt="img"/>
         </div>
         <div>
-            <img src="/../img/default.jpg" style="max-height: 220px; max-width: 250px" alt="img"/>
+          <router-link :to="{ name: 'product_details', params: {id: productData.id}}">
+            <img :src="image" style="max-height: 220px; max-width: 250px" alt="img"/>
+          </router-link>
         </div>
     </div>
 </template>
@@ -19,6 +24,7 @@
 <script>
     import axios from "axios";
     import vSizeModal from './v-size-modal.vue'
+    import {mapGetters} from "vuex";
 
     export default {
         name: 'v-catalog-item',
@@ -36,11 +42,17 @@
         data() {
             return {
                 isSizeModalVisible: false,
-                sizes: []
+                sizes: [],
+                image: ''
             }
         },
-        computed: {},
-        methods: {
+        computed: {
+          ...mapGetters(['isAdmin']),
+        },
+      created() {
+          this.image = this.productData.images[0].image;
+      },
+      methods: {
             openModalWindow(productId) {
                 this.isSizeModalVisible = true;
                 this.getAllSizesByProductId(productId)
@@ -54,9 +66,9 @@
                     response.data.forEach(size => this.sizes.push(size))
                 );
             },
-            addToCart(productId) {
-                axios.get(`/api/cart/addtocart/${productId}`);
-                console.log('yes');
+            addToCart(product) {
+                this.$store.dispatch("addProductToCart", {product: product});
+                this.isSizeModalVisible = false;
             }
         }
     }
@@ -70,6 +82,7 @@
     flex-direction:column;
     margin-bottom:15px;
     margin-right:15px;
+    padding-bottom: 10px;
     border-bottom: 1px solid lightgray;
     &__title {
         @import url('https://fonts.googleapis.com/css?family=Open+Sans');
@@ -93,12 +106,10 @@
 .modal-fade-leave-active {
     opacity: 0;
 }
-
 .modal-fade-enter-active,
 .modal-fade-leave-active {
     transition: opacity .5s ease
 }
-
 .sizeItem {
     position: relative;
     -webkit-box-sizing: border-box;
@@ -115,10 +126,27 @@
     -webkit-box-shadow: inset 0 0 0 1px #fff;
     box-shadow: inset 0 0 0 1px #fff;
 }
-
 .size {
     position: absolute;
     top: 0;
     left: -9999px;
+}
+span.edit {
+  overflow-wrap: break-word;
+  word-break: break-word;
+  outline: 0;
+  text-decoration: none;
+  cursor: pointer;
+  font-family: system,-apple-system,BlinkMacSystemFont,'Segoe UI','Segoe WP',Roboto,Ubuntu,Oxygen,Cantarell,'Fira Sans','Helvetica Neue',Helvetica,'Lucida Grande','Droid Sans',Tahoma,'Microsoft Sans Serif',sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  border-bottom: 1px dashed #8b8b8b;
+  color: #8b8b8b;
+  position: relative;
+  vertical-align: middle;
+}
+a:hover {
+  text-decoration: none;
 }
 </style>

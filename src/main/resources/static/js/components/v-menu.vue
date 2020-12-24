@@ -1,8 +1,8 @@
 <template>
     <div class="menu">
         <ul class="menu__list">
-            <li v-for="category in categories" :key="category.id" class="menu__item">
-                <router-link :to="{ name: 'categoryPage', params: {category: category.category.toLocaleLowerCase()}}">{{category.category}}</router-link>
+            <li @click="loadProducts" v-for="category in categories" :key="category.id" class="menu__item">
+                <router-link :to="{ name: 'categoryPage', params: {category: category.category.toLowerCase()}}">{{category.category}}</router-link>
             </li>
         </ul>
     </div>
@@ -10,28 +10,33 @@
 
 <script>
     import axios from "axios";
-    import { prodComponent } from './data.json'
+    import {mapActions, mapGetters} from "vuex";
     export default {
         name: "v-menu",
         data() {
             return {
-                products: prodComponent,
                 categories: []
             }
         },
-        methods: {
-            getAllByCategory(category) {
-                prodComponent.products = [];
-                axios.get(`/api/products/${category}`).then(response =>
-                    response.data.forEach(product => prodComponent.products.push(product))
-                );
-            }
-        },
-        created() {
-            axios.get('/api/products/categories').then(response =>
-                response.data.forEach(product => this.categories.push(product))
-            );
+
+      computed: {
+        ...mapGetters([
+          'catalogItems'
+        ])
+      },
+      methods: {
+        ...mapActions(['getProductFromApi', 'getPagesCount']),
+        loadProducts() {
+          this.getProductFromApi({page: 0, category:this.$route.params.category})
+          this.getPagesCount(this.$route.params.category)
         }
+      },
+      created() {
+          this.categories = [];
+          axios.get('/api/products/categories').then(response =>
+              response.data.forEach(product => this.categories.push(product))
+          );
+      }
     }
 </script>
 

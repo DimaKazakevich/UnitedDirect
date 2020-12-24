@@ -10,7 +10,7 @@ import java.util.List;
 public interface SizeService {
     List<Size> findAll();
 
-    List<String> findAllByProductId(Integer productId);
+    List<Size> findAllByProductId(Integer productId);
 
     List<Size> findAll(Sort sort);
 

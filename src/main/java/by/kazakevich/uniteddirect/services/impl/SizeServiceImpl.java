@@ -24,7 +24,7 @@ public class SizeServiceImpl implements SizeService {
     }
 
     @Override
-    public List<String> findAllByProductId(Integer productId) {
+    public List<Size> findAllByProductId(Integer productId) {
         return sizeRepository.findAllByProductId(productId);
     }
 

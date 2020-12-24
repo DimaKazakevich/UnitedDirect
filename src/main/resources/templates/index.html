@@ -1,24 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <title>UnitedDirect</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" th:href="@{../css/style.css}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-<div id="app" style="min-height: 100%">
-</div>
+<div class="app"></div>
 <script type="module" src="http://localhost:9000/main.js"></script>
-<footer style="display: flex">
-    <div class="footerCaption" th:text="${'©'+#dates.year(#dates.createNow()) + ' Manchester United FC Ltd'}"></div>
-    <div class="footerImage">
-        <img src="/img/footerlogo.png" alt="img"/>
-    </div>
-</footer>
 </body>
 </html>

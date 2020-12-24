@@ -12,8 +12,9 @@
             </div>
             <label for="password-confirm">Confirm Password</label>
             <div>
-                <input id="password-confirm" type="password" required>
+                <input id="password-confirm" v-model="password_confirmed" type="password" required>
             </div>
+            <hr />
             <div>
                 <button type="submit">Register</button>
             </div>
@@ -28,7 +29,8 @@
             return {
                 email : '',
                 password : '',
-                //password_confirmation : ''
+                password_confirmed : '',
+                prevRoute: null
             }
         },
         methods: {
@@ -38,10 +40,16 @@
                     password: this.password,
                 }
                 this.$store.dispatch('register', data)
-                    .then(() => this.$router.push('/'))
                     .catch(err => console.log(err))
+
+                this.$route.replace(this.prevRoute.path)
             }
-        }
+        },
+      beforeRouteEnter(to, from, next) {
+        next(vm => {
+          vm.prevRoute = from
+        })
+      },
     }
 </script>
 

@@ -4,6 +4,7 @@
             <h1>Log in</h1>
             <label>Email</label>
             <input required v-model="email" type="email" placeholder="Name"/>
+            <br />
             <label>Password</label>
             <input required v-model="password" type="password" placeholder="Password"/>
             <hr/>
@@ -13,13 +14,13 @@
 </template>
 
 <script>
-    let token = '';
     export default {
         name: "v-login",
         data() {
             return {
                 email: '',
-                password: ''
+                password: '',
+                prevRoute: null
             }
         },
         methods: {
@@ -27,10 +28,15 @@
                 let email = this.email
                 let password = this.password
                 this.$store.dispatch('login', { email:email, password:password })
-                    .then(() => this.$router.push('/'))
+                    .then(() =>  this.$router.replace(this.prevRoute.path))
                     .catch(err => console.log(err))
             }
-        }
+        },
+      beforeRouteEnter(to, from, next) {
+        next(vm => {
+          vm.prevRoute = from
+        })
+      },
     }
 </script>
 
